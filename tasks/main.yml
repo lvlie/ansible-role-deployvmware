@@ -1,0 +1,42 @@
+---
+# tasks file for ansible-role-deployvmware
+
+- name: Deploy VM on ESXi from template
+  vmware_guest:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    esxi_hostname: '{{ vcenter_hostname }}'
+    validate_certs: no
+    folder: '{{ folder }}'
+    name: '{{ inventory_hostname }}'
+    id: '{{ id }}'
+    disk:
+    - size_gb: '{{ additional_disk_size }}' 
+      type: thin
+      datastore: '{{ vcenter_datastore }}'
+    networks:
+    - name: '{{ network }}'
+      ip: '{{ ansible_host }}'
+      netmask: '{{ netmask }}'
+      gateway: '{{ gateway }}'
+      dns_servers:
+      - '{{ dns_server }}'
+      start_connected: true
+    hardware:
+      hotadd_cpu: true
+      hotremove_cpu: true
+      hotadd_memory: true
+      memory_mb: '{{ memory }}'
+      num_cpus: '{{ vcpu }}'
+    customization:
+      dns_suffix: '{{ domain_name }}'
+      dns_servers:
+      - '{{ dns_server }}'
+      domain : '{{ domain_name }}'
+      hostname: '{{ inventory_hostname }}'
+      timezone: '{{ timezone }}'
+    template: '{{ template }}'
+    wait_for_ip_address: true
+    state: '{{ state }}'
+  delegate_to: localhost

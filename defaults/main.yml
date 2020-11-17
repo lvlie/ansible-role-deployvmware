@@ -1,0 +1,15 @@
+---
+# defaults file for ansible-role-deployvmware
+network: 'VM Network'
+timezone: 'Utc/Utc'
+id: 'ubuntu64Guest'
+memory: '4096'
+vcpu: '2'
+additional_disk_size: '10'
+template: 'ubuntu-focal'
+folder: 'ha-datacenter'
+netmask: '255.255.255.0'
+gateway: '10.0.0.1'
+dns_server: '1.1.1.1'
+domain_name: '.local'
+state: poweredon
