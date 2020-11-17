@@ -67,7 +67,6 @@
       domain : '{{ domain_name }}'
       hostname: '{{ inventory_hostname }}'
       timezone: '{{ timezone }}'
-    wait_for_ip_address: true
     state: present
   delegate_to: localhost
 
