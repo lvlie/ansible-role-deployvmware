@@ -68,5 +68,27 @@
       hostname: '{{ inventory_hostname }}'
       timezone: '{{ timezone }}'
     wait_for_ip_address: true
+    state: present
+  delegate_to: localhost
+
+- name: Poweron VM on ESXi
+  vmware_guest:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    esxi_hostname: '{{ esxi_hostname }}'
+    validate_certs: no
+    folder: '{{ folder }}'
+    name: '{{ inventory_hostname }}'
+    guest_id: '{{ id }}'
+    customization:
+      existing_vm: true
+      dns_suffix: '{{ domain_name }}'
+      dns_servers:
+      - '{{ dns_server }}'
+      domain : '{{ domain_name }}'
+      hostname: '{{ inventory_hostname }}'
+      timezone: '{{ timezone }}'
+    wait_for_ip_address: true
     state: '{{ state }}'
   delegate_to: localhost
