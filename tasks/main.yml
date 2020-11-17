@@ -1,10 +1,22 @@
 ---
 # tasks file for ansible-role-deployvmware
+- name: Gather info from standalone ESXi server having datacenter as 'ha-datacenter'
+  vmware_guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: ha-datacenter
+    validate_certs: no
+    name: '{{ inventory_hostname }}'
+  delegate_to: localhost
+  register: info
+
 - name: Download latest ubuntu 20.04 ova
   get_url:
     url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.ova
     dest: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
+  when: info.results.exists
 
 - name: Deploy template to ESXi
   vmware_deploy_ovf:
@@ -17,6 +29,7 @@
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
+  when: info.results.exists
 
 - name: Configure VM on ESXi from uploaded template
   vmware_guest:
