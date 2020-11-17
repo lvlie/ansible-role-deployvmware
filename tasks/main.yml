@@ -47,13 +47,13 @@
       memory_mb: '{{ memory }}'
       num_cpus: '{{ vcpu }}'
     customization:
+      existing_vm: true
       dns_suffix: '{{ domain_name }}'
       dns_servers:
       - '{{ dns_server }}'
       domain : '{{ domain_name }}'
       hostname: '{{ inventory_hostname }}'
       timezone: '{{ timezone }}'
-    template: '{{ template }}'
     wait_for_ip_address: true
     state: '{{ state }}'
   delegate_to: localhost
