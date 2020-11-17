@@ -10,7 +10,7 @@
     validate_certs: no
     folder: '{{ folder }}'
     name: '{{ inventory_hostname }}'
-    id: '{{ id }}'
+    guest_id: '{{ id }}'
     disk:
     - size_gb: '{{ additional_disk_size }}' 
       type: thin
