@@ -16,7 +16,7 @@
     url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.ova
     dest: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
-  when: vm is not defined
+  when: vm.results is not defined
 
 - name: Deploy template to ESXi
   vmware_deploy_ovf:
@@ -29,7 +29,7 @@
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
-  when: vm is not defined
+  when: vm.results is not defined
 
 - name: Configure VM on ESXi from uploaded template
   vmware_guest:
