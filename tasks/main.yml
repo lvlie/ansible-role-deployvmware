@@ -8,6 +8,7 @@
     validate_certs: no
     name: '{{ inventory_hostname }}'
   delegate_to: localhost
+  failed_when: false
   register: vm
 
 - name: Download latest ubuntu 20.04 ova
@@ -15,7 +16,7 @@
     url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.ova
     dest: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
-  when: not vm.results.exists
+  when: vm is not defined
 
 - name: Deploy template to ESXi
   vmware_deploy_ovf:
@@ -28,7 +29,7 @@
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
-  when: not info.results.exists
+  when: vm is not defined
 
 - name: Configure VM on ESXi from uploaded template
   vmware_guest:
