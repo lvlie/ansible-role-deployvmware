@@ -18,15 +18,15 @@
   delegate_to: localhost
   when: vm.folders is not defined
 
-- name: Remove old template
-  vmware_guest:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: no
-    name: '{{ template }}'
-    state: absent
-  delegate_to: localhost
+#- name: Remove old template
+#  vmware_guest:
+#    hostname: "{{ vcenter_hostname }}"
+#    username: "{{ vcenter_username }}"
+#    password: "{{ vcenter_password }}"
+#    validate_certs: no
+#    name: '{{ template }}'
+#    state: absent
+#  delegate_to: localhost
 
 - name: Deploy template to ESXi
   vmware_deploy_ovf:
@@ -35,13 +35,13 @@
     password: '{{ vcenter_password }}'
     validate_certs: no
     datastore: '{{ vcenter_datastore }}'
-    name: '{{ template }}'
+    name: '{{ inventory_hostname }}'
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
   when: vm.folders is not defined
 
-- name: Clone to VM
+- name: Customize VM
   vmware_guest:
     hostname: '{{ vcenter_hostname }}'
     username: '{{ vcenter_username }}'
@@ -72,6 +72,6 @@
       - '{{ dns_server }}'
       domain : '{{ domain_name }}'
       hostname: '{{ inventory_hostname }}'
-    template: '{{ template }}'
+#    template: '{{ template }}'
     wait_for_ip_address: yes
   delegate_to: localhost
