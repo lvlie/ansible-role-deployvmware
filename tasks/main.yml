@@ -59,6 +59,7 @@
       datastore: '{{ vcenter_datastore }}'
     networks:
     - name: '{{ network }}'
+      type: static
       ip: '{{ ansible_host }}'
       netmask: '{{ netmask }}'
       gateway: '{{ gateway }}'
