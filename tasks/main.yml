@@ -25,7 +25,7 @@
     password: '{{ vcenter_password }}'
     validate_certs: no
     datastore: '{{ vcenter_datastore }}'
-    name: 'ubuntu-focal'
+    name: '{{ template }}'
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
