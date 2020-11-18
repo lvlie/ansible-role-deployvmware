@@ -1,6 +1,6 @@
 ---
 # defaults file for ansible-role-deployvmware
-vcenter_datacenter: 'ha_datacenter'
+vcenter_datacenter: 'ha-datacenter'
 vcenter_folder: '/'
 vcenter_datastore: 'datastore'
 network: 'VM Network'
