@@ -1,15 +1,15 @@
 ---
 # tasks file for ansible-role-deployvmware
-- name: Check if VM exists yet
-  vmware_guest_find:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: no
-    name: '{{ inventory_hostname }}'
-  delegate_to: localhost
-  failed_when: false
-  register: vm
+#- name: Check if VM exists yet
+#  vmware_guest_find:
+#    hostname: "{{ vcenter_hostname }}"
+#    username: "{{ vcenter_username }}"
+#    password: "{{ vcenter_password }}"
+#    validate_certs: no
+#    name: '{{ inventory_hostname }}'
+#  delegate_to: localhost
+#  failed_when: false
+#  register: vm
 
 - name: Download latest ubuntu 20.04 ova
   get_url:
@@ -25,13 +25,13 @@
     password: '{{ vcenter_password }}'
     validate_certs: no
     datastore: '{{ vcenter_datastore }}'
-    name: '{{ inventory_hostname }}'
+    name: 'ubuntu-focal'
     power_on: no
     ovf: ~/Downloads/ubuntu-focal.ova
   delegate_to: localhost
   when: vm.folders is not defined
 
-- name: create the VM with STATIC IP
+- name: Clone to VM
   vmware_guest:
     hostname: '{{ vcenter_hostname }}'
     username: '{{ vcenter_username }}'
