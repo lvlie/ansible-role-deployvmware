@@ -1,14 +1,17 @@
 ---
 # defaults file for ansible-role-deployvmware
+vcenter_datacenter: 'ha_datacenter'
+vcenter_folder: '/'
+vcenter_datastore: 'datastore'
 network: 'VM Network'
 timezone: 'Utc/Utc'
 id: 'ubuntu64Guest'
 memory: '4096'
 vcpu: '2'
 additional_disk_size: '10'
+additional_disk_type: 'thin'
 folder: '/'
 netmask: '255.255.255.0'
 gateway: '10.0.0.1'
 dns_server: '1.1.1.1'
 domain_name: '.local'
-state: poweredon
